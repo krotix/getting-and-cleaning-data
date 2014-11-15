@@ -61,4 +61,4 @@ data_labels <- setdiff(colnames(extracted), head_labels)
 melt_data <- melt(extracted, id = head_labels, measure.vars = data_labels)
 
 tidy <- dcast(melt_data, Subject + ActivityLabel ~ variable, mean)
-write.table(tidy, file = "./tidy_data.txt")
+write.table(tidy, file = "./tidy_data.txt", row.name=FALSE)
