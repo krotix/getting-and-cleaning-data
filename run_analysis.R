@@ -1,5 +1,10 @@
 setwd("/Users/krotix/dev/home/R/Getting and Cleaning Data/project")
 
+if (!require("reshape2")) {
+  install.packages("reshape2")
+}
+require("reshape2")
+
 activity_labels <- read.csv("./UCI HAR Dataset/activity_labels.txt", sep="", header=FALSE)
 features <- read.csv("./UCI HAR Dataset/features.txt", sep="", header=FALSE)
 
@@ -30,7 +35,7 @@ y_test <- cbind(y_test, activity_labels[y_test[,1], 2])
 #3. Uses descriptive activity names to name the activities in the data set
 #add names
 names(x_test) <- features[, 2]
-names(subject_test) <- "subject"
+names(subject_test) <- "Subject"
 names(y_test) <- c("ActivityId", "ActivityLabel")
 
 test_data <- cbind(x_test, y_test, subject_test)
@@ -48,6 +53,7 @@ names <- gsub("-mean","Mean", names)
 names <- gsub("\\()|-","", names)
 names <- gsub("^t","Time", names)
 names <- gsub("^f","Frequency", names)
+names(extracted) <- names
 
 #5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 head_labels <- c("Subject", "ActivityId", "ActivityLabel")
